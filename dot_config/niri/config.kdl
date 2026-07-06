@@ -44,19 +44,6 @@ window-rule {
 	}
 }
 
-window-rule {
-	match app-id="menu.kando.Kando"
-	open-floating true
-	open-focused true
-	opacity 1.0
-	focus-ring { off; }
-	border { off; }
-	shadow { off; }
-	geometry-corner-radius 0
-	background-effect {
-		blur false
-	}
-}
 
 cursor {
     xcursor-theme "Bibata-Modern-Classic"

@@ -93,3 +93,4 @@ Pictures/
 
 # === 可能含 token 的配置（手动检查后决定是否加回） ===
 **/lazy-lock.json
+**/fish_variables

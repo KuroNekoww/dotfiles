@@ -130,9 +130,6 @@ binds {
     CTRL+Shift+2                        { screenshot-screen; }
     CTRL+Shift+3                        { screenshot-window; }
 
-    // ─── Kando Pie Menu ───
-    Mod+Shift+Z                          hotkey-overlay-title="Open Kando Menu" { spawn-sh "kando --menu Krita"; }
-
     // ─── Emergency Escape Key ───
     // Use this when a fullscreen app blocks your keybinds.
     // It disables any active keyboard shortcut inhibitor, restoring control.
@@ -143,7 +140,4 @@ binds {
     Mod+Shift+P                         { power-off-monitors; } // Turn off screens (useful for OLED or privacy)
     Mod+O                               repeat=false { toggle-overview; }
 
-    // ─── UGEE Bridge Toggle ───
-    // 腳本不存在，已停用
-    // Mod+Shift+U hotkey-overlay-title="Toggle UGEE Key Bridge" { spawn-sh "/home/kuronekoww/.local/bin/ugee-bridge-toggle"; }
 }
