@@ -1,4 +1,4 @@
-# dotfiles — Aether 桌面系统
+# dotfiles
 
 基于 [chezmoi](https://chezmoi.io) 管理的 CachyOS + Niri + KDE Plasma 混合桌面配置。
 
@@ -35,12 +35,13 @@ chezmoi init --apply KuroNekoww
 # 原生包
 sudo pacman -S --needed alacritty btop cava chafa chezmoi claude-code duf fastfetch \
   fcitx5-rime ffmpegthumbs ffmpegthumbnailer fish github-cli glances gpu-screen-recorder \
+  gpu-screen-recorder-ui gpu-screen-recorder-notification \
   haruna kate kcalc kdeconnect kdegraphics-thumbnailers kdialog kinfocenter meld \
   micro neovim niri obs-studio paru pavucontrol ripgrep starship superfile yazi \
   dolphin gwenview spectacle ark mark-shot plasma-desktop plasma-nm plasma-pa \
   plasma-firewall plasma-browser-integration plasma-login-manager bluedevil \
   powerdevil kscreen kde-gtk-config wireplumber pipewire-pulse pipewire-alsa \
-  networkmanager kvantum xsettingsd openrgb ttf-jetbrains-mono-nerd ttf-meslo-nerd \
+  networkmanager kvantum kvantum-qt5 qt5ct xsettingsd openrgb ttf-jetbrains-mono-nerd ttf-meslo-nerd \
   ttf-opensans cantarell-fonts awesome-terminal-fonts noto-fonts-cjk
 
 # AUR 包
@@ -66,10 +67,14 @@ systemctl reboot
 ├── fastfetch/         # 系统信息展示 (含头像)
 ├── fcitx5/            # 输入法框架 (含 rime 配置)
 ├── fish/              # Shell 配置
+├── gpu-screen-recorder/ # GPU 屏幕录制 (restore token)
 ├── gtk-3.0/ & gtk-4.0/  # GTK 主题、窗口装饰、noctalia 配色
+├── Kvantum/           # Qt 主题引擎配置
 ├── mark-shot/         # 截图标注工具
+├── micro/             # 终端编辑器 (settings + catppuccin 主题 + 全部语法高亮)
 ├── niri/              # 窗口管理器 (动画/键位/布局/配色等 9 个模块)
 ├── noctalia/          # 桌面外壳 (面板/Dock/通知/插件/莫兰迪主题)
+├── qt5ct/             # Qt5 配置工具
 ├── starship.toml      # Shell 提示符
 └── superfile/         # 终端文件管理器 + 20 个主题
 .local/share
@@ -125,7 +130,8 @@ systemctl reboot
 | `niri` | 可滚动平铺 Wayland 合成器 | pacman |
 | `noctalia` | 面板/Dock/通知/控制中心 | AUR |
 | `xsettingsd` | X 应用 DPI/主题守护 | pacman |
-| `kvantum` | Qt 主题引擎 | pacman |
+| `kvantum` / `kvantum-qt5` | Qt5/Qt6 主题引擎 | pacman |
+| `qt5ct` | Qt5 配置工具 | pacman |
 
 ### 终端工具
 
@@ -178,7 +184,7 @@ systemctl reboot
 |---|---|---|
 | `haruna` | 视频播放器 | pacman |
 | `obs-studio` | 直播/录屏 | pacman |
-| `gpu-screen-recorder` | GPU 屏幕录制 | pacman |
+| `gpu-screen-recorder` / `gpu-screen-recorder-ui` / `gpu-screen-recorder-notification` | GPU 屏幕录制 + ShadowPlay 风格覆盖层 | pacman |
 | `vlc-plugins-all` | VLC 编解码器全集 | pacman |
 | `libdvdcss` | DVD 解密 | pacman |
 | `spectacle` | 截图工具 | pacman |
