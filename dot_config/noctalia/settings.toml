@@ -1,0 +1,2 @@
+[hooks]
+wallpaper_changed = [ "bash /home/kuronekoww/.config/noctalia/apply-morandi.sh" ]

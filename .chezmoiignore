@@ -1,0 +1,95 @@
+# === SSH & GPG 密钥 ===
+.ssh/
+.gnupg/
+
+# === 浏览器数据（含cookie、登录态） ===
+.mozilla/
+.config/google-chrome/
+.config/chromium/
+.config/microsoft-edge/
+
+# === Token & 凭据 ===
+.config/gh/
+
+# === Claude / AI 工具（含 token / session） ===
+.claude/
+.claude.json
+.claude.json.*
+
+# === KDE 钱包（密码） ===
+.local/share/kwalletd/
+
+# === 证书 ===
+.pki/
+
+# === QQ 聊天数据（含登录信息） ===
+.config/QQ/
+
+# === 代理配置（含订阅链接） ===
+.local/share/com.follow.clash/
+
+# === KDE Connect（设备配对信息） ===
+.config/kdeconnect/
+
+# === 缓存 & 临时文件 ===
+.cache/
+**/.DS_Store
+**/__pycache__/
+*.log
+**/node_modules/
+
+# === 图片（体积大） ===
+图片/
+圖片/
+Pictures/
+.pictures/
+
+# === Rime 用户数据（含设备ID、同步记录） ===
+.local/share/fcitx5/rime/sync/
+.local/share/fcitx5/rime/user.yaml
+.local/share/fcitx5/rime/installation.yaml
+.local/share/fcitx5/rime/*.userdb/
+.local/share/fcitx5/rime/lua/
+.local/share/fcitx5/rime/build/
+
+# === chezmoi 自身 ===
+.local/share/chezmoi/
+
+# === fish history（可能含敏感命令） ===
+.local/share/fish/
+
+# === 系统快取 ===
+.config/plasma-workspace/
+.local/state/
+
+# === 回收站 ===
+.local/share/Trash/
+
+# === flatpak 应用 ===
+.var/
+
+# === vim 暂存 ===
+.viminfo
+
+# === PulseAudio ===
+.config/pulse/
+
+# === AI IDE（可能含 token） ===
+.config/opencode/
+
+# === 剪贴簿历史（含剪贴内容） ===
+.config/clipse/clipboard_history.json
+.config/clipse/clipse.log
+.config/clipse/tmp_files/
+
+# === kando 運行時狀態 ===
+.config/kando/session/
+.config/kando/achievements.json
+.config/kando/ipc-info.json
+
+# === 备份文件 ===
+*.bak
+*.tbcache
+
+# === 可能含 token 的配置（手动检查后决定是否加回） ===
+**/lazy-lock.json
