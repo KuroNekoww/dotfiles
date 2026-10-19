@@ -3,7 +3,6 @@ alacritty
 alsa-firmware
 alsa-plugins
 alsa-utils
-archlinuxcn-keyring
 ark
 awesome-terminal-fonts
 base
@@ -142,7 +141,6 @@ lsscsi
 lvm2
 man-db
 man-pages
-mark-shot
 mdadm
 meld
 mesa-utils
@@ -205,8 +203,6 @@ qt5ct
 realtime-privileges
 rebuild-detector
 reflector
-rime-ice-git
-rime-wanxiang-gram-zh-hans
 ripgrep
 rsync
 sg3_utils

@@ -39,23 +39,55 @@ dot_config/
 ├── private_fcitx5/      输入法（0600）
 ├── private_superfile/   文件管理器（0600）
 ├── xsettingsd/          XSettings 兼容
+├── fish/                shell 配置（含 fisher / nvm 插件）
+├── mimeapps.list        默认应用关联
+├── user-dirs.dirs       XDG 目录（桌面/下载/文档…）
+├── libinput-gestures.conf  触摸板手势
 └── starship.toml        提示符
+dot_gtkrc-2.0            GTK2 字体/主题
 
 dot_local/share/
 └── fcitx5/rime/         Rime 自定义方案
 
-packages-native.txt      官方仓库软件包列表
-packages-aur.txt         AUR 软件包列表
+packages-native.txt          core/extra/cachyos 软件包
+packages-archlinuxcn.txt     archlinuxcn 软件包（mark-shot、rime-ice 等）
+packages-aur.txt             AUR 软件包
+run_once_after_05-gsettings.sh          外观写入 dconf（主题/字体/光标）
 run_once_after_10-install-packages.sh   首次还原自动装包
 run_once_after_20-enable-services.sh    首次还原启用服务
 run_once_after_30-set-default-shell.sh  登录 shell 改为 fish
 ```
 
-## 不包含的内容（隐私 / 机器本地）
+## 第三方仓库
 
-SSH/GPG 密钥、浏览器数据、QQ/Clash/KDE Connect 数据、钱包、剪贴板历史、
-Rime 用户数据、`gpu-screen-recorder` 恢复 token、图片素材、`~/.local/state`。
-完整清单见 `.chezmoiignore`。
+`packages-archlinuxcn.txt` 里的 4 个包来自 archlinuxcn，CachyOS 默认没启用：
+
+```bash
+# /etc/pacman.conf 末尾追加
+[archlinuxcn]
+Server = https://repo.archlinuxcn.org/$arch
+
+# 导入 keyring 后再装包
+sudo pacman -Sy archlinuxcn-keyring
+```
+
+没有启用时，装包脚本会跳过这 4 个包并打印提示，其余包正常安装。
+
+## 不包含 / 无法还原的内容
+
+**有意排除（隐私或机器本地）：**
+SSH/GPG 密钥、浏览器数据、QQ/Clash/KDE Connect、钱包、剪贴板历史、
+Rime 用户词库与同步数据（`user.yaml` / `installation.yaml` / `*.userdb` / `build/` / `sync/`）、
+`gpu-screen-recorder` 恢复 token、图片素材（`~/图片`）、`~/.local/state`、dconf 二进制。
+
+**没有纳入仓库（需要的话可以 add 进来）：**
+KDE 应用自身的配置（`dolphinrc`、`katerc`、`gwenviewrc`、`spectaclerc`、`kdeglobals`、
+`kglobalshortcutsrc`、`kwinrc`、`plasmashellrc` 等），以及 `shelly`、`LauncherX` 这类
+单个应用自己的状态文件。它们不影响桌面能不能用，只影响这些应用内部的偏好。
+
+**由程序重新生成（不必纳入仓库）：**
+`gtk-{3,4}.0/noctalia.css`、`niri/noctalia.kdl`、各应用主题文件、`color-schemes/noctalia.colors`、
+`window_decorations.css`、`gtk-*/colors.css`（后两个由 KDE 的 `kde-gtk-config` 生成）。
 
 ## 首次还原（新系统）
 
@@ -93,7 +125,8 @@ noctalia msg templates-apply   # 如果某个主题文件没生成，手动重�
 | 位置 | 说明 |
 |---|---|
 | `~/.config/niri/cfg/display.kdl` | 输出名 `eDP-2`、分辨率/缩放 |
-| `~/.config/noctalia/config.toml` | `[shell].avatar_path`、`[wallpaper].directory` 指向 `~/图片/...` |
+| `~/.config/noctalia/config.toml` | `[shell].avatar_path`、`[wallpaper].directory`、`[wallpaper.default]` 指向 `~/图片/...` |
+| `~/.config/noctalia/config.toml` | `[lockscreen_widgets]` 里的输出名 `eDP-1` / `eDP-2` 需与实际显示器一致 |
 | `~/.config/fastfetch/config.jsonc` | `logo.source` 指向 `/home/kuronekoww/...` |
 | 用户名不同 | `grep -rl "/home/kuronekoww" ~/.local/share/chezmoi \| xargs sed -i 's\|/home/kuronekoww\|/home/新用户\|g'` |
 

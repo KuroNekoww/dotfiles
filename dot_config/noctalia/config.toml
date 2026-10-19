@@ -33,7 +33,7 @@ clipboard_auto_paste  = "auto"
 clipboard_image_action_command = ""
 shared_gl_context     = true
 lang                  = ""
-avatar_path           = "/home/kuronekoww/图片/afa56bc596434dda797da666610707ad_720.PNG"
+avatar_path           = "/home/kuronekoww/图片/tx.png"
 
 [shell.animation]
 enabled = true
@@ -81,12 +81,19 @@ interval_seconds  = 300
 order             = "random"
 recursive         = true
 
+[wallpaper.default]
+path = "/home/kuronekoww/图片/wallhaven-1qodm3.png"
+
+[wallpaper.monitors.eDP-2]
+path = "/home/kuronekoww/图片/wallhaven-1qodm3.png"
+
 # ── Theme ─────────────────────────────────────────────────────────────────────
 
 [theme]
 mode   = "auto"
 source = "wallpaper"
 builtin = "Kanagawa"
+community_palette = "Oxocarbon"
 wallpaper_scheme = "m3-content"
 
 [theme.templates]
@@ -384,3 +391,72 @@ title_scroll    = "none"
 hide_album_art  = false
 # v5 has no inline media visualizer; use the audio_visualizer widget for that.
 hide_when_no_media = false
+
+
+# ── Lockscreen layout (GUI-managed, synced from state) ────────────────────────
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = ["lockscreen-login-box@eDP-1", "lockscreen-login-box@eDP-2"]
+
+[lockscreen_widgets.grid]
+cell_size = 16
+major_interval = 4
+visible = true
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+box_height = 196.0
+box_width = 810.0
+cx = 854.0
+cy = 885.0
+output = "eDP-1"
+placement_height = 1067.0
+placement_width = 1707.0
+rotation = 0.0
+type = "login_box"
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+background_color = "surface_variant"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_password_reveal = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-2"]
+box_height = 196.0
+box_width = 810.0
+cx = 854.0
+cy = 885.00006103515625
+output = "eDP-2"
+placement_height = 1067.0
+placement_width = 1707.0
+rotation = 0.0
+type = "login_box"
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-2".settings]
+background_color = "surface_variant"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_password_reveal = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true

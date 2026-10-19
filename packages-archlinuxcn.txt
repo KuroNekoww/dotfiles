@@ -1,0 +1,4 @@
+archlinuxcn-keyring
+mark-shot
+rime-ice-git
+rime-wanxiang-gram-zh-hans
