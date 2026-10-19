@@ -1,0 +1,11 @@
+# chezmoi 编译产物
+/.temp/
+/*.tmp
+
+# macOS
+.DS_Store
+
+# 编辑器
+*.swp
+*.swo
+*~

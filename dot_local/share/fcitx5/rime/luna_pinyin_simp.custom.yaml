@@ -1,0 +1,124 @@
+# 朙月拼音·简化字 增强配置
+# 简体中文输出 + 模糊音 + 语句流模型
+
+patch:
+  # 开关设置（覆蓋 schema 全部 switches，需包含所有開關）
+  switches:
+    - name: ascii_mode
+      reset: 0
+      states: [ 中文, 西文 ]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+    - name: zh_simp
+      reset: 1
+      states: [ 漢字, 汉字 ]
+    - name: ascii_punct
+      states: [ 。，, ．， ]
+
+  # 拼写设定 - 模糊音与自动纠错
+  speller:
+    alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
+    delimiter: " '"
+    algebra:
+      ### 超级简拼
+      - erase/^hm$/
+      - erase/^m$/
+      - erase/^n$/
+      - erase/^ng$/
+      - abbrev/^([a-z]).+$/$1/
+      - abbrev/^([zcs]h).+$/$1/
+
+      ### v/u 转换
+      - derive/^([nl])ue$/$1ve/
+      - derive/^([nl])ve$/$1ue/
+      - derive/^([jqxy])u/$1v/
+      - derive/^([jqxy])v/$1u/
+
+      ### 大写字母转写
+      - xlit/āḃçďēḟḡĥīĵḱĺḿńōṕɋŕśťūṽẃẋȳź/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
+
+      ### 自动纠错
+      # zh、ch、sh
+      - derive/([zcs])h(a|e|i|u|ai|ei|an|en|ou|uo|ua|un|ui|uan|uai|uang|ang|eng|ong)$/h$1$2/
+      - derive/([zcs])h([aeiu])$/$1$2h/
+      # ai
+      - derive/^([wghk])ai$/$1ia/
+      # ia
+      - derive/([qjx])ia$/$1ai/
+      # ei
+      - derive/([wtfghkz])ei$/$1ie/
+      # ie
+      - derive/([jqx])ie$/$1ei/
+      # ao
+      - derive/([rtypsdghklzcbnm])ao$/$1oa/
+      # ou
+      - derive/([ypfm])ou$/$1uo/
+      # an
+      - derive/([wrtypsdfghklzcbnm])an$/$1na/
+      # en
+      - derive/([wrpsdfghklzcbnm])en$/$1ne/
+      # ang
+      - derive/([wrtypsdfghklzcbnm])ang$/$1nag/
+      - derive/([wrtypsdfghklzcbnm])ang$/$1agn/
+      # eng
+      - derive/([wrtpsdfghklzcbnm])eng$/$1neg/
+      - derive/([wrtpsdfghklzcbnm])eng$/$1egn/
+      # ing
+      - derive/([qtypdjlxbnm])ing$/$1nig/
+      - derive/([qtypdjlxbnm])ing$/$1ign/
+      # ong
+      - derive/([rtysdghklzcn])ong$/$1nog/
+      - derive/([rtysdghklzcn])ong$/$1ogn/
+      # iao
+      - derive/([qtpdjlxbnm])iao$/$1ioa/
+      - derive/([qtpdjlxbnm])iao$/$1oia/
+      # ui
+      - derive/([rtsghkzc])ui$/$1iu/
+      # iu
+      - derive/([qjlxnm])iu$/$1ui/
+      # ian
+      - derive/([qtpdjlxbnm])ian$/$1ain/
+      # in
+      - derive/([qypjlxbnm])in$/$1ni/
+      # iang
+      - derive/([qjlxn])iang$/$1aing/
+      - derive/([qjlxn])iang$/$1inag/
+      # ua
+      - derive/([g|k|h|zh|sh])ua$/$1au/
+      # uai
+      - derive/([g|h|k|zh|ch|sh])uai$/$1aui/
+      - derive/([g|h|k|zh|ch|sh])uai$/$1uia/
+      # uan
+      - derive/([qrtysdghjklzxcn])uan$/$1aun/
+      # un
+      - derive/([qrtysdghjklzxc])un$/$1nu/
+      # ue
+      - derive/([nlyjqx])ue$/$1eu/
+      # uang
+      - derive/([g|h|k|zh|ch|sh])uang$/$1aung/
+      - derive/([g|h|k|zh|ch|sh])uang$/$1uagn/
+      - derive/([g|h|k|zh|ch|sh])uang$/$1unag/
+      - derive/([g|h|k|zh|ch|sh])uang$/$1augn/
+      # iong
+      - derive/([jqx])iong$/$1inog/
+      - derive/([jqx])iong$/$1oing/
+      - derive/([jqx])iong$/$1iogn/
+      - derive/([jqx])iong$/$1oign/
+      # 其他
+      - derive/([rtsdghkzc])o(u|ng)$/$1o/
+      - derive/ong$/on/
+      - derive/([tl])eng$/$1en/
+      - derive/([qwrtypsdfghjklzxcbnm])([aeio])ng$/$1ng/
+
+  # 翻译器 - 启用语句流模型
+  translator:
+    dictionary: luna_pinyin
+    enable_sentence: true
+    enable_user_dict: true
+    enable_encoder: true
+    encode_commit_history: true
+    max_phrase_length: 7
+    preedit_format: []
+    comment_format:
+      - xform/^[[]//
+      - xform/[]]$//

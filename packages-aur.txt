@@ -1,0 +1,7 @@
+ack
+antlr3
+bibata-cursor-theme-bin
+clipse-git
+flclash-bin
+google-chrome
+zulu-25-bin

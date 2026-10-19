@@ -1,0 +1,40 @@
+patch:
+  # 方案列表
+  schema_list:
+    - schema: luna_pinyin_simp     # 朙月拼音·简化字（默认）
+  
+  # 菜单
+  menu:
+    page_size: 8
+
+  # 中西文切换
+  ascii_composer:
+    good_old_caps_lock: true
+    switch_key:
+      Caps_Lock: clear
+      Shift_L: clear
+      Shift_R: clear
+      Control_L: noop
+      Control_R: noop
+
+  # 標點符號
+  punctuator:
+    import_preset: default
+    half_shape:
+      "[": "〔"
+      "]": "〕"
+    full_shape:
+      ",": "，"
+      ".": "。"
+      "<": "《"
+      ">": "》"
+      "?": "？"
+      "!": "！"
+      ":": "："
+      ";": "；"
+      "(": "（"
+      ")": "）"
+      "\"": "“"
+      "\"": "”"
+      "'": "‘"
+      "'": "’"

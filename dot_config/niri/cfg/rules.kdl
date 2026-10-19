@@ -1,0 +1,19 @@
+    window-rule {
+        geometry-corner-radius 12 // Set every window radius to 12
+        clip-to-geometry true
+    }
+
+    window-rule {
+        match app-id="fcitx"
+        open-floating true
+    }
+
+
+
+
+
+    layer-rule {
+        match namespace="^noctalia-wallpaper*"
+        place-within-backdrop true
+    }
+
