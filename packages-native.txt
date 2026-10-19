@@ -74,6 +74,7 @@ fcitx5-rime
 ffmpegthumbnailer
 ffmpegthumbs
 filelight
+firefox
 fish
 flatpak
 fsarchiver
@@ -225,8 +226,10 @@ ttf-caladea
 ttf-dejavu
 ttf-jetbrains-mono-nerd
 ttf-liberation
+ttf-lxgw-wenkai
 ttf-meslo-nerd
 ttf-opensans
+ttf-sarasa-gothic
 ufw
 ufw-extras
 uglify-js
