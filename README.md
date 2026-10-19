@@ -52,11 +52,10 @@ dot_local/share/
 packages-native.txt          core/extra/cachyos 软件包
 packages-archlinuxcn.txt     archlinuxcn 软件包（mark-shot、rime-ice 等）
 packages-aur.txt             AUR 软件包
-run_once_after_05-gsettings.sh          外观写入 dconf（主题/字体/光标）
-run_once_after_10-install-packages.sh   首次还原自动装包
-run_once_after_20-enable-services.sh    首次还原启用服务
-run_once_after_30-set-default-shell.sh  登录 shell 改为 fish
+dconf-gnome-interface.ini    外观设置（主题/字体/光标/明暗）的 dconf 导出
 ```
+
+> 仓库里**没有任何脚本**：装包、启服务、改 shell、导入外观都由下面的命令手动完成。
 
 ## 第三方仓库
 
@@ -71,7 +70,7 @@ Server = https://repo.archlinuxcn.org/$arch
 sudo pacman -Sy archlinuxcn-keyring
 ```
 
-没有启用时，装包脚本会跳过这 4 个包并打印提示，其余包正常安装。
+这 4 个包必须在启用 archlinuxcn 之后再安装。
 
 ## 不包含 / 无法还原的内容
 
@@ -97,14 +96,36 @@ KDE 应用自身的配置（`dolphinrc`、`katerc`、`gwenviewrc`、`spectaclerc
 # 1) 基础依赖
 sudo pacman -S --needed base-devel git chezmoi
 
-# 2) 克隆并应用配置（会跑 run_once 脚本：装包 → 启服务 → 改 shell）
+# 2) 先启用 archlinuxcn（需要其中的 mark-shot / rime-ice 等）
+#    /etc/pacman.conf 末尾追加：
+#    [archlinuxcn]
+#    Server = https://repo.archlinuxcn.org/$arch
+sudo pacman -Sy archlinuxcn-keyring
+
+# 3) 克隆并应用配置（只写入配置文件，不装包）
 chezmoi init --apply KuroNekoww/dotfiles-new
 
-# 3) 重启
+# 4) 安装软件包（列表来自仓库）
+sudo pacman -S --needed $(cat ~/.local/share/chezmoi/packages-native.txt)
+sudo pacman -S --needed $(cat ~/.local/share/chezmoi/packages-archlinuxcn.txt)
+paru -S --needed $(cat ~/.local/share/chezmoi/packages-aur.txt)
+
+# 5) 启用服务
+sudo systemctl enable --now NetworkManager bluetooth ufw avahi-daemon \
+    systemd-resolved systemd-timesyncd systemd-oomd switcheroo-control
+sudo systemctl enable --now ananicy-cpp nvidia-powerd flclash-helper plasmalogin
+
+# 6) 登录 shell 改为 fish
+chsh -s /usr/bin/fish
+
+# 7) 导入外观（主题/字体/光标/明暗；dconf 是二进制，无法直接放仓库）
+dconf load /org/gnome/desktop/interface/ < ~/.local/share/chezmoi/dconf-gnome-interface.ini
+
+# 8) 重启
 systemctl reboot
 ```
 
-> 仓库为私有的话用 SSH：`chezmoi init --apply git@github.com:KuroNekoww/dotfiles-new.git`
+> 如果以后新机器用户名不是 `kuronekoww`，先按下面「按机器调整」替换路径，再执行第 3 步。
 
 首次登录后：
 
@@ -167,13 +188,6 @@ pacman -Qqen | sort > ~/dotfiles-new/packages-native.txt
 pacman -Qqem | sort > ~/dotfiles-new/packages-aur.txt
 ```
 
-### 重新运行 run_once 脚本
-
-```bash
-chezmoi state delete-bucket --bucket=scriptState
-chezmoi apply
-```
-
 ## 同步到 GitHub
 
 ### 首次推送
@@ -224,3 +238,4 @@ git push
 
 - 本仓库基于 live 系统导出，`~/dotfiles`（旧）保持原样，可随时对照。
 - 若以后自行添加其他应用配色，优先走 Noctalia 模板，不要手写色值。
+- 仓库不含任何脚本；包列表、dconf 导出、README 命令即可完成还原。
