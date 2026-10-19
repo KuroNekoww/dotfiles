@@ -175,7 +175,7 @@ Rime 用户词库与同步数据（`user.yaml` / `installation.yaml` / `*.userdb
 - `kglobalshortcutsrc`（快捷键绑定，机器相关）
 - `kwinrc` / `kwinrulesrc` / `kwinoutputconfig.json` / `plasma*`（KWin / Plasma 专属，本机用 niri）
 - `kioslaverc` / `kiorc`（含最近访问与网络位置）
-- `ksmserverrc`、`session/`（会话状态）、`shelly`、`LauncherX`（单个应用自己的状态）
+- `ksmserverrc`、`session/`（会话状态）、`shelly`（应用自身状态）
 - `kdeconnect/`（含设备密钥，隐私）
 
 这些都不影响 niri 桌面能否还原；要的话可以自行 `chezmoi add`。
@@ -246,6 +246,9 @@ git push --force origin main
 推送完成后，新机器直接用 `chezmoi init --apply KuroNekoww/dotfiles` 还原。
 
 ## 主题文件说明
+
+> 模板 hook 需要 `jq`（micro / fastfetch 的 apply 脚本用它改 JSON）和常见 coreutils；
+> `jq` 已包含在 `packages-native.txt` 中。
 
 配色全部由 Noctalia 的 theme templates 生成，仓库里只保存「模板清单」：
 

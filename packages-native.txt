@@ -104,6 +104,7 @@ inter-font
 intltool
 iwd
 jfsutils
+jq
 kate
 kcalc
 kde-gtk-config
