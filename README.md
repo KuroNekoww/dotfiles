@@ -45,8 +45,10 @@ dot_config/
 ├── qt5ct/               Qt5 配置
 ├── private_fcitx5/      输入法（0600）
 ├── private_superfile/   文件管理器（0600）
-├── user-dirs.dirs       XDG 目录（桌面/下载/文档…）
+├── private_user-dirs.dirs  XDG 目录（桌面/下载/文档…，0600）
 ├── xsettingsd/          XSettings 兼容
+├── *rc / katemetainfos  KDE 应用偏好（dolphin / kate / gwenview / spectacle /
+│                        ark / konsole / 输入设备 / 电源 / 时间区域 / 索引 等）
 └── starship.toml        提示符
 dot_gtkrc-2.0            GTK2 字体/主题
 
@@ -168,8 +170,15 @@ Rime 用户词库与同步数据（`user.yaml` / `installation.yaml` / `*.userdb
 `gpu-screen-recorder` 恢复 token、图片素材、`~/.local/state`、dconf 二进制。
 完整规则见 `.chezmoiignore`。
 
-**未纳入（应用内部偏好，按需自行 add）：** `dolphinrc`、`katerc`、`gwenviewrc`、`spectaclerc`、
-`kdeglobals`、`kglobalshortcutsrc`、`kwinrc`、`plasmashellrc`、`shelly`、`LauncherX` 等。
+**未纳入：**
+- `kdeglobals`（含解析后的颜色值，由 Noctalia 的 `kcolorscheme` 模板重新写入）
+- `kglobalshortcutsrc`（快捷键绑定，机器相关）
+- `kwinrc` / `kwinrulesrc` / `kwinoutputconfig.json` / `plasma*`（KWin / Plasma 专属，本机用 niri）
+- `kioslaverc` / `kiorc`（含最近访问与网络位置）
+- `ksmserverrc`、`session/`（会话状态）、`shelly`、`LauncherX`（单个应用自己的状态）
+- `kdeconnect/`（含设备密钥，隐私）
+
+这些都不影响 niri 桌面能否还原；要的话可以自行 `chezmoi add`。
 
 **由程序生成，不必纳入：** `gtk-{3,4}.0/noctalia.css`、`niri/noctalia.kdl`、各应用主题文件、
 `color-schemes/noctalia.colors`、`window_decorations.css`、`gtk-*/colors.css`
