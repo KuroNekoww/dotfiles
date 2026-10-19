@@ -68,12 +68,16 @@ dconf-gnome-desktop.ini    外观（主题/字体/光标/明暗）的 dconf 导�
 `packages-archlinuxcn.txt` 里的 4 个包来自 **archlinuxcn**，CachyOS 默认没有这个仓库：
 
 ```bash
-# /etc/pacman.conf 末尾追加
+# /etc/pacman.conf 末尾追加（ustc 镜像国内更快）
 [archlinuxcn]
-Server = https://repo.archlinuxcn.org/$arch
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+# 或官方：Server = https://repo.archlinuxcn.org/$arch
 
 sudo pacman -Sy archlinuxcn-keyring
 ```
+
+另外确认 `[multilib]` 已启用（`lib32-vulkan-icd-loader` 来自该仓库；CachyOS 默认一般已开启，
+没开的话在 `/etc/pacman.conf` 里取消注释）。
 
 ## 首次还原（按顺序手动执行）
 
@@ -110,6 +114,10 @@ sudo pacman -S --needed $(cat ~/.local/share/chezmoi/packages-native.txt)
 sudo pacman -S --needed $(cat ~/.local/share/chezmoi/packages-archlinuxcn.txt)
 paru -S --needed $(cat ~/.local/share/chezmoi/packages-aur.txt)
 ```
+
+> 三个列表共 266 项：覆盖当前系统全部 264 个显式包，另外补上 `fish`（登录 shell）和 `jq`（模板 hook 需要）。
+> 本机总包数 1353，其余约 1089 个都是依赖，且 `pacman -Qdtq` 为 0（没有孤儿），
+> 所以在新机器上装完这些包会得到同样的依赖闭包。**版本不锁定**，装的是当时仓库里的最新版本。
 
 ### 5. 启用系统服务
 
