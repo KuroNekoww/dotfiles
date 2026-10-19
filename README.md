@@ -56,7 +56,7 @@ dot_local/share/
 packages-native.txt          core/extra/cachyos 软件包
 packages-archlinuxcn.txt     archlinuxcn 软件包（mark-shot、rime-ice 等）
 packages-aur.txt             AUR 软件包
-dconf-gnome-interface.ini    外观（主题/字体/光标/明暗）的 dconf 导出
+dconf-gnome-desktop.ini    外观（主题/字体/光标/明暗）的 dconf 导出
 ```
 
 `packages-*.txt`、`dconf-*.ini`、`README.md` 已在 `.chezmoiignore` 中排除，不会被写进 `$HOME`。
@@ -128,7 +128,7 @@ chsh -s /usr/bin/fish
 Wayland 下 GTK 通过 portal 读取 dconf，`settings.ini` 只是回退，所以必须导入：
 
 ```bash
-dconf load /org/gnome/desktop/interface/ < ~/.local/share/chezmoi/dconf-gnome-interface.ini
+dconf load /org/gnome/desktop/ < ~/.local/share/chezmoi/dconf-gnome-desktop.ini
 ```
 
 ### 8. 重启
@@ -202,7 +202,7 @@ pacman -Qqen | grep -vE '^(archlinuxcn-keyring|mark-shot|rime-ice-git|rime-wanxi
 pacman -Qqem | sort > ~/dotfiles-new/packages-aur.txt
 
 # 外观
-dconf dump /org/gnome/desktop/interface/ > ~/dotfiles-new/dconf-gnome-interface.ini
+dconf dump /org/gnome/desktop/ > ~/dotfiles-new/dconf-gnome-desktop.ini
 ```
 
 提交并推送：
@@ -264,6 +264,13 @@ noctalia msg templates-apply
 **OBS 没有跟随主题**
 在 OBS 设置里手动选 `matugen`。
 
-**字体不对**
-本项目用 `fontconfig/fonts.conf` 控制字体优先级（sans → Inter，中文 → 更纱黑体 / Noto CJK），
-外观字体本身在 dconf（`dconf-gnome-interface.ini`）。改完字体后重新导出 dconf 并同步仓库。
+**字体不对 / 想把界面换成 Inter**
+`fontconfig/fonts.conf` 只决定"请求 sans-serif 时选谁"和中文回退（sans → Inter，中文 → 更纱黑体 / Noto CJK）。
+界面字体本身是 dconf 里显式写的 `Noto Sans 10`，所以两者可以不一致。想让界面也用 Inter：
+
+```bash
+gsettings set org.gnome.desktop.interface font-name "Inter 10"
+gsettings set org.gnome.desktop.interface document-font-name "Inter 10"
+# 同步回退文件后重新导出 dconf
+dconf dump /org/gnome/desktop/ > ~/dotfiles-new/dconf-gnome-desktop.ini
+```
