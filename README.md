@@ -116,6 +116,9 @@ paru -S --needed $(cat ~/.local/share/chezmoi/packages-aur.txt)
 ```
 
 > 三个列表共 266 项：覆盖当前系统全部 264 个显式包，另外补上 `fish`（登录 shell）和 `jq`（模板 hook 需要）。
+> AUR 共 7 个：`google-chrome`、`flclash-bin`、`zulu-25-bin`、`bibata-cursor-theme-bin` 是 `-bin` 直接装；
+> `ack`、`antlr3`、`clipse-git` 现场编译（需要 `base-devel`、网络，以及 `go` 等 make 依赖，paru 会自动处理；
+> `ack` 还会连带安装 AUR 依赖 `perl-file-next`）。
 > 本机总包数 1353，其余约 1089 个都是依赖，且 `pacman -Qdtq` 为 0（没有孤儿），
 > 所以在新机器上装完这些包会得到同样的依赖闭包。**版本不锁定**，装的是当时仓库里的最新版本。
 
